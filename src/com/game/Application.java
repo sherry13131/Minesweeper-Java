@@ -12,13 +12,11 @@ public class Application extends JFrame {
 
     private void initUI() {
 
-        add(new Board());
-
-		setSize(1182,1000);
+    	add(new StartMenu());
 
         setTitle("Minesweeper");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+//        setLocationRelativeTo(null);
     }    
     
     public static void main(String[] args) {

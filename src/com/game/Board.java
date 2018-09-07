@@ -22,7 +22,7 @@ public class Board extends JPanel {
         addMouseListener(new MouseAdapter() {
             
         	@Override
-		    public void mouseClicked(MouseEvent e) {
+		    public void mouseReleased(MouseEvent e) {
 		        int w = getWidth();
 		        int h = getHeight();
 
