@@ -6,6 +6,12 @@ import java.util.Random;
 public class MainGame {
 	Random rand = new Random();
 
+	final int ALL = 320;
+	int bombnum = 35;
+	
+	int gameover = 0; // 0: playing, -1: win, 1: lost
+	int remaining = ALL - bombnum;
+
 	// init to all 0
 	int[][] bombs = new int[16][20];
 	int[][] clickdata = new int[16][20];
@@ -18,7 +24,7 @@ public class MainGame {
 	private void initGame() {
 		int x, y;
 		// set 35 bomb positions
-		for(int i = 0; i < 35; i++) {
+		for(int i = 0; i < bombnum; i++) {
 			x = rand.nextInt(20);
 			y = rand.nextInt(16);
 			System.out.println(x + " " +y + "i= " + i);
@@ -122,10 +128,12 @@ public class MainGame {
 		
 		// state clicked
 		clickdata[y][x] = 1;
+		remaining--;
 		
 		// check if it's a bomb
 		// return bombs[x][y]; // simplify
 		if (bombs[y][x] == -1) {
+			remaining++;
 			return -1;
 		} else if (bombs[y][x] == 0) {
 			// open all surrounding 0 boxs
@@ -143,6 +151,7 @@ public class MainGame {
 			if (x - 1 >= 0) {
 				if (clickdata[y-1][x-1] == 0) {
 					clickdata[y-1][x-1] = 1;
+					remaining--;
 
 					if (bombs[y-1][x-1] == 0) {
 						openAllAround(x-1, y-1);
@@ -152,6 +161,7 @@ public class MainGame {
 			// check middle
 			if (clickdata[y-1][x] == 0) {
 				clickdata[y-1][x] = 1;
+				remaining--;
 				if (bombs[y-1][x] == 0) {
 					openAllAround(x, y-1);
 				}
@@ -160,6 +170,7 @@ public class MainGame {
 			if (x + 1 < 20) {
 				if (clickdata[y-1][x+1] == 0) {
 					clickdata[y-1][x+1] = 1;
+					remaining--;
 					if (bombs[y-1][x+1] == 0) {
 						openAllAround(x+1, y-1);
 					}
@@ -172,6 +183,7 @@ public class MainGame {
 			// check left
 			if (clickdata[y][x-1] == 0) {
 				clickdata[y][x-1] = 1;
+				remaining--;
 				if (bombs[y][x-1] == 0) {
 					openAllAround(x-1, y);
 				}
@@ -181,6 +193,7 @@ public class MainGame {
 			//check right
 			if (clickdata[y][x+1] == 0) {
 				clickdata[y][x+1] = 1;
+				remaining--;
 				if (bombs[y][x+1] == 0) {
 					openAllAround(x+1, y);
 				}
@@ -192,6 +205,7 @@ public class MainGame {
 			if (x - 1 >= 0) {
 				if (clickdata[y+1][x-1] == 0) {
 					clickdata[y+1][x-1] = 1;
+					remaining--;
 					if (bombs[y+1][x-1] == 0) {
 						openAllAround(x-1, y+1);
 					}
@@ -200,6 +214,7 @@ public class MainGame {
 			// check middle
 			if (clickdata[y+1][x] == 0) {
 				clickdata[y+1][x] = 1;
+				remaining--;
 				if (bombs[y+1][x] == 0) {
 					openAllAround(x, y+1);
 				}
@@ -208,6 +223,7 @@ public class MainGame {
 			if (x + 1 < 20) {
 				if (clickdata[y+1][x+1] == 0) {
 					clickdata[y+1][x+1] = 1;
+					remaining--;
 					if (bombs[y+1][x+1] == 0) {
 						openAllAround(x+1, y+1);
 					}
@@ -216,6 +232,13 @@ public class MainGame {
 		}
 
 	}
+	
+	public void endGame() {
+		bombs = new int[16][20];
+		clickdata = new int[16][20];
+		gameover = 0;
+	}
+	
 	
 //	public static void main(String[] args) {
 //		MainGame newgame = new MainGame();

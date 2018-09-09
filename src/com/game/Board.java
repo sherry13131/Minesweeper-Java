@@ -18,6 +18,8 @@ public class Board extends JPanel {
     private MainGame newgame;
     private int theWidth, theHeight;
     
+    private int gameover = 0;
+    
     private Image bomb;
     private Image bomb0;
     private Image bomb1;
@@ -28,6 +30,8 @@ public class Board extends JPanel {
     private Image bomb6;
     private Image bomb7;
     private Image bomb8;
+    private Image lost;
+    private Image win;
     
 	public Board() {
 
@@ -39,35 +43,49 @@ public class Board extends JPanel {
             
         	@Override
 		    public void mouseReleased(MouseEvent e) {
-		        int w = getWidth();
-		        int h = getHeight();
-		        
-		        System.out.println(w);
-		        System.out.println(h);
-		        theWidth = w;
-		        theHeight = h;
-        		System.out.println(e.getPoint());
-		        if ((e.getPoint().getX() > 100 && e.getPoint().getX() < 1100) && (e.getPoint().getY() > 100 && e.getPoint().getY() < 900)) {
-			        selectedCell = null;
-			        for (int col = 0; col < 24 && selectedCell == null; col++) {
-			            for (int row = 0; row < 19; row++) {
-			                int x = (w / 23) * col;
-			                int y = (h / 19) * row;
-			                Rectangle cell = new Rectangle(x, y, w / 23, h / 19);
-			                if (cell.contains(e.getPoint())) {
-			                    System.out.println("In");
-			                    System.out.println(x + ", " + y);
-			                    
-			                    int success = newgame.clicked(x, y);
-			                    
-			                    repaint();
-			                    break;
-			                }
-			            }
+        		if (newgame.gameover == 0) {
+			        int w = getWidth();
+			        int h = getHeight();
+			        
+			        System.out.println(w);
+			        System.out.println(h);
+			        theWidth = w;
+			        theHeight = h;
+	        		System.out.println(e.getPoint());
+			        if ((e.getPoint().getX() > 100 && e.getPoint().getX() < 1100) && (e.getPoint().getY() > 100 && e.getPoint().getY() < 900)) {
+				        selectedCell = null;
+				        for (int col = 0; col < 24 && selectedCell == null; col++) {
+				            for (int row = 0; row < 19; row++) {
+				                int x = (w / 23) * col;
+				                int y = (h / 19) * row;
+				                Rectangle cell = new Rectangle(x, y, w / 23, h / 19);
+				                if (cell.contains(e.getPoint())) {
+				                    System.out.println("In");
+				                    System.out.println(x + ", " + y);
+				                    
+				                    int success = newgame.clicked(x, y);
+				                    
+				                    // if a bomb is clicked
+				                    if (success == -1) {
+				                    	//endGame;
+//				                    	newgame.endGame();
+				                    } else {
+				                    	// check if all boxes opened
+				                    	if (newgame.remaining == 0) {
+				                    		newgame.gameover = -1;
+//				                    		newgame.endGame();
+				                    	}
+				                    }
+				                    
+				                    repaint();
+				                    break;
+				                }
+				            }
+				        }
+			        } else {
+			        	System.out.println("nothing there");
 			        }
-		        } else {
-		        	System.out.println("nothing there");
-		        }
+        		}
 		    }
         });
 	}
@@ -115,6 +133,7 @@ public class Board extends JPanel {
         			// if the block is bomb
         			if(newgame.bombs[j][i] == -1) {
         				g.drawImage(bomb, i*50+100, j*50+100, 50, 50, null);
+        				newgame.gameover = 1;
         			} else if(newgame.bombs[j][i] == 0) {
         				g.drawImage(bomb0, i*50+100, j*50+100, 50, 50, null);
         			} else if(newgame.bombs[j][i] == 1) {
@@ -133,10 +152,16 @@ public class Board extends JPanel {
         				g.drawImage(bomb7, i*50+100, j*50+100, 50, 50, null);
         			} else if(newgame.bombs[j][i] == 8) {
         				g.drawImage(bomb8, i*50+100, j*50+100, 50, 50, null);
-        			}     			
+        			}
 //        	        ((Graphics2D) g).fill(cell);
         		}
         	}
+        }
+        if (newgame.gameover == 1) {
+        	g.drawImage(lost, 250, 300, 700, 400, null);
+        }
+        if (newgame.gameover == -1) {
+        	g.drawImage(win, 250, 300, 700, 400, null);
         }
     }
     
@@ -162,5 +187,9 @@ public class Board extends JPanel {
         bomb7 = ii.getImage();
     	ii = new ImageIcon("res/bomb8.png");
         bomb8 = ii.getImage();
+        ii = new ImageIcon("res/lost.png");
+        lost = ii.getImage();
+        ii = new ImageIcon("res/win.png");
+        win = ii.getImage();
     }
 }
