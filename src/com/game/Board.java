@@ -103,10 +103,11 @@ public class Board extends JPanel {
     public void update(Graphics g) {
         Rectangle cell;
         g.setColor(Color.BLUE);
-        for (int i = 0; i < 16; i++) {
-        	for (int j = 0; j < 20; j++) {
+        for (int i = 0; i < 20; i++) {
+        	for (int j = 0; j < 16; j++) {
         		// if clicked, show block data
-        		if (newgame.clickdata[i][j] > 0) {
+        		if (newgame.clickdata[j][i] > 0) {
+        			System.out.println((i*50+100) + " " + (j*50+100));
         			cell = new Rectangle(i*50+100, j*50+100, theWidth / 23, theHeight / 19);
         	        ((Graphics2D) g).fill(cell);
         		}
