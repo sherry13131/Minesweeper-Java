@@ -3,9 +3,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.*;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,6 +17,18 @@ public class Board extends JPanel {
     private Rectangle selectedCell = null;
     private MainGame newgame;
     private int theWidth, theHeight;
+    
+    private Image bomb;
+    private Image bomb0;
+    private Image bomb1;
+    private Image bomb2;
+    private Image bomb3;
+    private Image bomb4;
+    private Image bomb5;
+    private Image bomb6;
+    private Image bomb7;
+    private Image bomb8;
+    
 	public Board() {
 
         initBoard();
@@ -43,21 +57,9 @@ public class Board extends JPanel {
 			                if (cell.contains(e.getPoint())) {
 			                    System.out.println("In");
 			                    System.out.println(x + ", " + y);
-//			                    selectedCell = cell;
-//			                    repaint();
-//			                    break;
 			                    
 			                    int success = newgame.clicked(x, y);
-			                    // if success, show block element
-//			                    if (success == -1) {
-//			                    	// show bomb that block
-//			                    	
-//			                    } else if (success == 999) {
-//			                    	System.out.println("already clicked");
-//			                    } else {
-//			                    	// show number of that block
-//			                    	
-//			                    }
+			                    
 			                    repaint();
 			                    break;
 			                }
@@ -72,6 +74,8 @@ public class Board extends JPanel {
 
 	private void initBoard() {
         
+		loadImage();
+		
 		JFrame frame = new JFrame();
 		frame.setLocationRelativeTo(null);
 		frame.setBackground(Color.LIGHT_GRAY);
@@ -94,24 +98,69 @@ public class Board extends JPanel {
 		for (int i = 0; i < 17; i++) {
 			g.drawLine(100, 100+50*i, 1100, 100+50*i);
 		}
-//		if (selectedCell != null) {
-			update(g);
-//        }
+		update(g);
 	}
     
     @Override
     public void update(Graphics g) {
-        Rectangle cell;
+        String name = new String("bomb");
         g.setColor(Color.BLUE);
         for (int i = 0; i < 20; i++) {
         	for (int j = 0; j < 16; j++) {
         		// if clicked, show block data
         		if (newgame.clickdata[j][i] > 0) {
         			System.out.println((i*50+100) + " " + (j*50+100));
-        			cell = new Rectangle(i*50+100, j*50+100, theWidth / 23, theHeight / 19);
-        	        ((Graphics2D) g).fill(cell);
+//        			cell = new Rectangle(i*50+100, j*50+100, theWidth / 23, theHeight / 19);
+        			
+        			// if the block is bomb
+        			if(newgame.bombs[j][i] == -1) {
+        				g.drawImage(bomb, i*50+100, j*50+100, 50, 50, null);
+        			} else if(newgame.bombs[j][i] == 0) {
+        				g.drawImage(bomb0, i*50+100, j*50+100, 50, 50, null);
+        			} else if(newgame.bombs[j][i] == 1) {
+        				g.drawImage(bomb1, i*50+100, j*50+100, 50, 50, null);
+        			} else if(newgame.bombs[j][i] == 2) {
+        				g.drawImage(bomb2, i*50+100, j*50+100, 50, 50, null);
+        			} else if(newgame.bombs[j][i] == 3) {
+        				g.drawImage(bomb3, i*50+100, j*50+100, 50, 50, null);
+        			} else if(newgame.bombs[j][i] == 4) {
+        				g.drawImage(bomb4, i*50+100, j*50+100, 50, 50, null);
+        			} else if(newgame.bombs[j][i] == 5) {
+        				g.drawImage(bomb5, i*50+100, j*50+100, 50, 50, null);
+        			} else if(newgame.bombs[j][i] == 6) {
+        				g.drawImage(bomb6, i*50+100, j*50+100, 50, 50, null);
+        			} else if(newgame.bombs[j][i] == 7) {
+        				g.drawImage(bomb7, i*50+100, j*50+100, 50, 50, null);
+        			} else if(newgame.bombs[j][i] == 8) {
+        				g.drawImage(bomb8, i*50+100, j*50+100, 50, 50, null);
+        			}     			
+//        	        ((Graphics2D) g).fill(cell);
         		}
         	}
         }
+    }
+    
+    private void loadImage() {
+        
+    	ImageIcon ii = new ImageIcon("res/bomb.png");
+    	bomb = ii.getImage();
+    	ii = new ImageIcon("res/bomb0.png");
+        bomb0 = ii.getImage();
+    	ii = new ImageIcon("res/bomb1.png");
+        bomb1 = ii.getImage();
+    	ii = new ImageIcon("res/bomb2.png");
+        bomb2 = ii.getImage();
+    	ii = new ImageIcon("res/bomb3.png");
+        bomb3 = ii.getImage();
+    	ii = new ImageIcon("res/bomb4.png");
+        bomb4 = ii.getImage();
+    	ii = new ImageIcon("res/bomb5.png");
+        bomb5 = ii.getImage();
+    	ii = new ImageIcon("res/bomb6.png");
+        bomb6 = ii.getImage();
+    	ii = new ImageIcon("res/bomb7.png");
+        bomb7 = ii.getImage();
+    	ii = new ImageIcon("res/bomb8.png");
+        bomb8 = ii.getImage();
     }
 }
