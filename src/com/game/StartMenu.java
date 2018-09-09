@@ -34,7 +34,6 @@ public class StartMenu extends JPanel {
 		            
         	@Override
 		    public void mouseReleased(MouseEvent e) {
-//        		System.out.println("hihi");
 
                 frame.setTitle("Minesweeper");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
