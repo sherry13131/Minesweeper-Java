@@ -9,7 +9,7 @@ public class MainGame {
 	final int ALL = 320;
 	int bombnum = 35;
 	
-	int gameover = 0; // 0: playing, -1: win, 1: lost
+	int gameover = 0; // 0: playing, -1: win, 1: lose
 	int remaining = ALL - bombnum;
 
 	// init to all 0

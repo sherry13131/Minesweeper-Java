@@ -31,7 +31,7 @@ public class Board extends JPanel {
     private Image bomb6;
     private Image bomb7;
     private Image bomb8;
-    private Image lost;
+    private Image lose;
     private Image win;
     
 	public Board() {
@@ -125,7 +125,7 @@ public class Board extends JPanel {
 		update(g);
 
         if (newgame.gameover == 1) {
-        	g.drawImage(lost, 250, 300, 700, 400, null);
+        	g.drawImage(lose, 250, 300, 700, 400, null);
         	// add restart button
         	addRestartButtons();
         }
@@ -198,8 +198,8 @@ public class Board extends JPanel {
         bomb7 = ii.getImage();
     	ii = new ImageIcon("res/bomb8.png");
         bomb8 = ii.getImage();
-        ii = new ImageIcon("res/lost.png");
-        lost = ii.getImage();
+        ii = new ImageIcon("res/lose.png");
+        lose = ii.getImage();
         ii = new ImageIcon("res/win.png");
         win = ii.getImage();
     }
