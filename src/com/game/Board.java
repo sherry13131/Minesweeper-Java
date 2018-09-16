@@ -1,6 +1,7 @@
 package com.game;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -116,15 +117,22 @@ public class Board extends JPanel {
 		for (int i = 0; i < 17; i++) {
 			g.drawLine(100, 100+50*i, 1100, 100+50*i);
 		}
+		
+		g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+		g.drawString("Bomb remaining: ", 100, 80);
+		g.drawString(newgame.getRemaining(), 300, 80);
+		
 		update(g);
 
         if (newgame.gameover == 1) {
         	g.drawImage(lost, 250, 300, 700, 400, null);
         	// add restart button
-        	addRestartButton();
+        	addRestartButtons();
         }
         if (newgame.gameover == -1) {
         	g.drawImage(win, 250, 300, 700, 400, null);
+        	// add restart button
+        	addRestartButtons();
         }
 	}
     
@@ -201,21 +209,36 @@ public class Board extends JPanel {
     	repaint();
     }
     
-    private void addRestartButton() {
+    private void addRestartButtons() {
         JButton restartbutton = new JButton("Restart");
-
+        JButton exitbutton = new JButton("Exit");
+        
         setLayout(null);
-        restartbutton.setBounds(530, 650, 150, 40);
+        restartbutton.setBounds(430, 620, 150, 40);
+        exitbutton.setBounds(630, 620, 150, 40);
+        Font font = new Font("Helvetica", Font.BOLD, 17);
+        restartbutton.setFont(font);
+        exitbutton.setFont(font);
+        
         add(restartbutton);
+        add(exitbutton);
 
         restartbutton.addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent e) {
                 System.out.println("clicked restart");
                 restartbutton.setVisible(false);
+                exitbutton.setVisible(false);
                 restart();
             }
-        });  
+        });
+        
+        exitbutton.addMouseListener(new MouseAdapter() {
+            public void mouseReleased(MouseEvent e) {
+            	System.exit(0);
+            }
+        });
 
         restartbutton.setVisible(true);
+        exitbutton.setVisible(true);
     }
 }

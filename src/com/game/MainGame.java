@@ -246,6 +246,10 @@ public class MainGame {
 		initGame();
 	}
 	
+	public String getRemaining() {
+		return String.valueOf(remaining);
+	}
+	
 	
 //	public static void main(String[] args) {
 //		MainGame newgame = new MainGame();
