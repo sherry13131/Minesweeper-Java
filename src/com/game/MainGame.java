@@ -236,7 +236,14 @@ public class MainGame {
 	public void endGame() {
 		bombs = new int[16][20];
 		clickdata = new int[16][20];
+	}
+	
+	public void restart() {
+		bombs = new int[16][20];
+		clickdata = new int[16][20];
 		gameover = 0;
+		remaining = ALL - bombnum;
+		initGame();
 	}
 	
 	

@@ -117,6 +117,15 @@ public class Board extends JPanel {
 			g.drawLine(100, 100+50*i, 1100, 100+50*i);
 		}
 		update(g);
+
+        if (newgame.gameover == 1) {
+        	g.drawImage(lost, 250, 300, 700, 400, null);
+        	// add restart button
+        	addRestartButton();
+        }
+        if (newgame.gameover == -1) {
+        	g.drawImage(win, 250, 300, 700, 400, null);
+        }
 	}
     
     @Override
@@ -157,12 +166,6 @@ public class Board extends JPanel {
         		}
         	}
         }
-        if (newgame.gameover == 1) {
-        	g.drawImage(lost, 250, 300, 700, 400, null);
-        }
-        if (newgame.gameover == -1) {
-        	g.drawImage(win, 250, 300, 700, 400, null);
-        }
     }
     
     private void loadImage() {
@@ -191,5 +194,28 @@ public class Board extends JPanel {
         lost = ii.getImage();
         ii = new ImageIcon("res/win.png");
         win = ii.getImage();
+    }
+    
+    public void restart() {
+    	newgame.restart();
+    	repaint();
+    }
+    
+    private void addRestartButton() {
+        JButton restartbutton = new JButton("Restart");
+
+        setLayout(null);
+        restartbutton.setBounds(530, 650, 150, 40);
+        add(restartbutton);
+
+        restartbutton.addMouseListener(new MouseAdapter() {
+            public void mouseReleased(MouseEvent e) {
+                System.out.println("clicked restart");
+                restartbutton.setVisible(false);
+                restart();
+            }
+        });  
+
+        restartbutton.setVisible(true);
     }
 }

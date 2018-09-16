@@ -1,5 +1,7 @@
 package com.game;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -8,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class StartMenu extends JPanel {
-
+	
 	public StartMenu() {
 		initMenu();
 	}
@@ -27,7 +29,7 @@ public class StartMenu extends JPanel {
 		JButton helpbutton = new JButton("Help");
 		helpbutton.setBounds(550,570, 100, 40);
 		frame.add(helpbutton);
-
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		startbutton.addMouseListener(new MouseAdapter() {
@@ -46,4 +48,5 @@ public class StartMenu extends JPanel {
         	}
 		});
 	}
+	
 }
