@@ -1,5 +1,6 @@
 package com.game;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -23,11 +24,16 @@ public class StartMenu extends JPanel {
 		frame.setResizable(false);
 		frame.setVisible(true);
 
+
+        Font font = new Font("Helvetica", Font.BOLD, 17);
+        
 		JButton startbutton = new JButton("Start");
-		startbutton.setBounds(550,510,100,40);
+		startbutton.setBounds(550,510,150,40);
+		startbutton.setFont(font);
 		frame.add(startbutton);
 		JButton helpbutton = new JButton("Help");
-		helpbutton.setBounds(550,570, 100, 40);
+		helpbutton.setBounds(550,570, 150, 40);
+		helpbutton.setFont(font);
 		frame.add(helpbutton);
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
